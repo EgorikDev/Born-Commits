@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект Born_Test - Superice Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: #161b22;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+        
+        header {
+            background-color: #0d1117;
+            padding: 25px;
+            border-bottom: 1px solid #30363d;
+            text-align: center;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .project-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #58a6ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .project-name i {
+            color: #f78166;
+        }
+        
+        .studio-name {
+            color: #8b949e;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .studio-name i {
+            color: #ffd700;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background-color: #21262d;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8b949e;
+            margin-top: 5px;
+        }
+        
+        .commit-count {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-top: 5px;
+        }
+        
+        .content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: #161b22;
+            padding: 25px;
+            border-right: 1px solid #30363d;
+        }
+        
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .default-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #30363d;
+            background-color: #21262d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 48px;
+            color: #58a6ff;
+        }
+        
+        .avatar-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #c9d1d9;
+            margin-bottom: 5px;
+        }
+        
+        .avatar-subtitle {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        
+        .recent-authors {
+            margin-top: 30px;
+        }
+        
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .author:hover {
+            background-color: #21262d;
+        }
+        
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #21262d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #30363d;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: #c9d1d9;
+        }
+        
+        .author-role {
+            font-size: 0.8rem;
+            color: #8b949e;
+            margin-top: 2px;
+        }
+        
+        .author-time {
+            font-size: 0.85rem;
+            color: #8b949e;
+        }
+        
+        .telegram-link {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 3px;
+            transition: color 0.2s;
+        }
+        
+        .telegram-link:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .post-date {
+            color: #8b949e;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .post-date i {
+            color: #58a6ff;
+        }
+        
+        .commits-section {
+            margin-top: 30px;
+        }
+        
+        .commit {
+            background-color: #21262d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .commit:hover {
+            transform: translateY(-2px);
+            border-color: #58a6ff;
+        }
+        
+        .commit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .commit-id {
+            background-color: #0d1117;
+            color: #58a6ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: 1px solid #30363d;
+        }
+        
+        .commit-type {
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .bug-fix {
+            background-color: rgba(248, 81, 73, 0.15);
+            color: #f85149;
+        }
+        
+        .feature {
+            background-color: rgba(56, 139, 253, 0.15);
+            color: #388bfd;
+        }
+        
+        .model-update {
+            background-color: rgba(130, 80, 223, 0.15);
+            color: #8250df;
+        }
+        
+        .content-update {
+            background-color: rgba(46, 160, 67, 0.15);
+            color: #2ea043;
+        }
+        
+        .commit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #c9d1d9;
+        }
+        
+        .commit-desc {
+            color: #8b949e;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .commit-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+        
+        .detail i {
+            color: #58a6ff;
+        }
+        
+        .new-content {
+            background-color: rgba(46, 160, 67, 0.1);
+            border-left: 4px solid #2ea043;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .new-content-title {
+            font-weight: 600;
+            color: #2ea043;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 0.9rem;
+            background-color: #0d1117;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #21262d;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ea043, #58a6ff);
+            border-radius: 4px;
+            width: 75%;
+        }
+        
+        .empty-commit {
+            background-color: rgba(139, 148, 158, 0.1);
+            border-left: 4px solid #8b949e;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 4px 4px 0;
+            font-style: italic;
+            color: #8b949e;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #30363d;
+            }
+            
+            .stats {
+                gap: 15px;
+            }
+            
+            .stat-box {
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="studio-name">
+                    <i class="fas fa-bolt"></i>
+                    Superice Games
+                </div>
+                <div class="project-name">
+                    <i class="fas fa-code-branch"></i>
+                    Born_Test / Main
+                </div>
+                <div class="commit-count">
+                    <span id="commitCount">0</span> коммитов за <span id="daysCount">0</span> дней
+                </div>
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="activeContributors">2</div>
+                        <div class="stat-label">разработчика</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="completedTasks">2</div>
+                        <div class="stat-label">задачи в работе</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="openIssues">0</div>
+                        <div class="stat-label">релизов</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <aside class="sidebar">
+                <div class="avatar-section">
+                    <div class="default-avatar">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="avatar-title">Superice Games</div>
+                </div>
+                
+                <div class="recent-authors">
+                    <h3>Команда разработки</h3>
+                    <div class="author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <div class="author-name">EgorikDev</div>
+                            <div class="author-role">Главный разработчик</div>
+                            <a href="https://t.me/egorikdev" target="_blank" class="telegram-link">@egorikdev</a>
+                        </div>
+                        <div class="author-time">Делает игру</div>
+                    </div>
+                    <div class="author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <div class="author-name">B1TNEYM</div>
+                            <div class="author-role">Помогающий разработчик</div>
+                            <a href="https://t.me/B1TNEYM" target="_blank" class="telegram-link">@B1TNEYM</a>
+                        </div>
+                        <div class="author-time">Не активен</div>
+                    </div>
+                    
+                    <div class="new-content" style="margin-top: 20px; background-color: rgba(56, 139, 253, 0.1); border-left-color: #388bfd;">
+                        <div class="new-content-title" style="color: #388bfd;">
+                            <i class="fas fa-user-crown"></i>
+                            О разработчике:
+                        </div>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">EgorikDev планирует добавить коноплю (ткань) и грибы в игру. Работа над обновлением начнется 26 декабря 2025.</p>
+                    </div>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <div class="post-date">
+                    <i class="far fa-calendar-alt"></i>
+                    Сегодня, 27 декабря 2025 16:10
+                </div>
+                
+                <div class="commits-section">
+                    <div class="commit">
+                        <div class="commit-header">
+                            <div class="commit-id">born_test/main#1</div>
+                            <div class="commit-type feature">ПЛАНИРУЕТСЯ</div>
+                        </div>
+                        <div class="commit-title">Добавление конопли (ткани) и грибов в игру</div>
+                        <div class="commit-desc">
+                            <strong>Разработчик: EgorikDev</strong><br><br>
+                            Планируется добавление новых собираемых ресурсов: конопля (будет использоваться для создания ткани) и различные виды грибов. 
+                            Ресурсы будут генерироваться в определенных биомах с разной вероятностью. Коноплю можно будет переработать в ткань на верстаке.
+                            <br><br>
+                            <em>Запланировано на 26 декабря 2025</em>
+                        </div>
+                        <div class="commit-details">
+                            <div class="detail">
+                                <i class="fas fa-user"></i>
+                                <span>EgorikDev</span>
+                            </div>
+                            <div class="detail">
+                                <i class="far fa-clock"></i>
+                                <span>Планируется</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-code-branch"></i>
+                                <span>feature/new-resources</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="commit">
+                        <div class="commit-header">
+                            <div class="commit-id">born_test/main#2</div>
+                            <div class="commit-type model-update">В РАЗРАБОТКЕ</div>
+                        </div>
+                        <div class="commit-title">Реомодель и новая текстура калаша</div>
+                        <div class="commit-desc">
+                            <strong>Разработчик: EgorikDev</strong><br><br>
+                            В процессе полной переработки 3D-модели АК-47 (калаша). Планируются новые высокодетализированные текстуры с PBR материалами. 
+                            Будет улучшена анимация перезарядки и добавлены новые звуковые эффекты.
+                        </div>
+                        <div class="new-content">
+                            <div class="new-content-title">
+                                <i class="fas fa-bullhorn"></i>
+                                Планируемые изменения:
+                            </div>
+                            <ul>
+                                <li>Добавление учёных и дорог</li>
+                                <li>Добавление оружия MP5 и томик</li>
+                                <li>Переработка системы прицеливания</li>
+                                <li>Улучшение анимаций</li>
+                                <li>Система кислорода (для воды)</li>
+                            </ul>
+                        </div>
+                        <div class="commit-details">
+                            <div class="detail">
+                                <i class="fas fa-user"></i>
+                                <span>EgorikDev</span>
+                            </div>
+                            <div class="detail">
+                                <i class="far fa-clock"></i>
+                                <span>В разработке</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-code-branch"></i>
+                                <span>feature/weapon-update</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="commit">
+                        <div class="commit-header">
+                            <div class="commit-id">born_test/main#Test</div>
+                            <div class="commit-type bug-fix">НЕТ АКТИВНОСТИ</div>
+                        </div>
+                        <div class="commit-title">B1TNEYM - Нет коммитов</div>
+                        <div class="commit-desc">
+                            <strong>Разработчик: B1TNEYM</strong><br><br>
+                            Помогающий разработчик еще не начал работу над проектом. Ожидается участие в будущих задачах.
+                        </div>
+                        <div class="empty-commit">
+                            <i class="fas fa-info-circle"></i>
+                            Этот разработчик пока не сделал ни одного коммита в проект.
+                        </div>
+                        <div class="commit-details">
+                            <div class="detail">
+                                <i class="fas fa-user"></i>
+                                <span>B1TNEYM</span>
+                            </div>
+                            <div class="detail">
+                                <i class="far fa-clock"></i>
+                                <span>Нет активности</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-code-branch"></i>
+                                <span>—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <footer>
+            <p>Superice Games • Проект Born_Test • Главный разработчик: <a href="https://t.me/egorikdev" target="_blank" style="color: #58a6ff;">EgorikDev</a></p>
+            <p style="margin-top: 5px;">Сайт обновляется автоматически • Текущая дата: 27 декабря 2025, 16:10</p>
+            <p>Born Telegram channel-@borngames<p>
+        </footer>
+    </div>
+
+    <script>
+        // Автоматический расчет статистики
+        document.addEventListener('DOMContentLoaded', function() {
+            // Начальная дата проекта (сегодня минус 30 дней)
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() - 30);
+            const today = new Date();
+            
+            // Разница в днях
+            const timeDiff = today.getTime() - startDate.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            // Количество коммитов (мало, так как проект только начинается)
+            const commitCount = 3;
+            
+            // Обновляем данные на странице
+            document.getElementById('daysCount').textContent = daysDiff;
+            document.getElementById('commitCount').textContent = commitCount;
+            
+            // Обновляем количество задач в работе
+            document.getElementById('completedTasks').textContent = 2;
+            
+            // Обновляем количество релизов
+            document.getElementById('openIssues').textContent = 0;
+        });
+        
+        // Анимация появления коммитов
+        window.addEventListener('load', function() {
+            const commits = document.querySelectorAll('.commit');
+            commits.forEach((commit, index) => {
+                commit.style.opacity = '0';
+                commit.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    commit.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    commit.style.opacity = '1';
+                    commit.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+        
+        // Анимация прогресс-бара
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressFill = document.querySelector('.progress-fill');
+            let width = 0;
+            const targetWidth = 45; // Проект только начинается
+            const interval = setInterval(() => {
+                if (width >= targetWidth) {
+                    clearInterval(interval);
+                    return;
+                }
+                width++;
+                progressFill.style.width = width + '%';
+            }, 20);
+        });
+        
+        // Анимация молнии
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightning = document.querySelector('.default-avatar i');
+            let isGlowing = false;
+            
+            setInterval(() => {
+                if (isGlowing) {
+                    lightning.style.color = '#58a6ff';
+                    lightning.style.textShadow = 'none';
+                } else {
+                    lightning.style.color = '#ffd700';
+                    lightning.style.textShadow = '0 0 10px #ffd700, 0 0 20px #ffd700';
+                }
+                isGlowing = !isGlowing;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
