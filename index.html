@@ -294,6 +294,11 @@
             color: #2ea043;
         }
         
+        .progress {
+            background-color: rgba(255, 211, 77, 0.15);
+            color: #ffd366;
+        }
+        
         .commit-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -377,6 +382,15 @@
             color: #8b949e;
         }
         
+        .update-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .update-list li {
+            margin-bottom: 5px;
+        }
+        
         @media (max-width: 768px) {
             .content {
                 flex-direction: column;
@@ -419,7 +433,7 @@
                         <div class="stat-label">разработчика</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-value" id="completedTasks">2</div>
+                        <div class="stat-value" id="completedTasks">4</div>
                         <div class="stat-label">задачи в работе</div>
                     </div>
                     <div class="stat-box">
@@ -464,7 +478,7 @@
                             <div class="author-role">Помогающий разработчик</div>
                             <a href="https://t.me/B1TNEYM" target="_blank" class="telegram-link">@B1TNEYM</a>
                         </div>
-                        <div class="author-time">Не активен</div>
+                        <div class="author-time">Активен с февраля</div>
                     </div>
                     
                     <div class="new-content" style="margin-top: 20px; background-color: rgba(56, 139, 253, 0.1); border-left-color: #388bfd;">
@@ -480,7 +494,7 @@
             <main class="main-content">
                 <div class="post-date">
                     <i class="far fa-calendar-alt"></i>
-                    Сегодня, 27 декабря 2025 16:10
+                    Сегодня, 14 января 2026 16:10
                 </div>
                 
                 <div class="commits-section">
@@ -518,16 +532,54 @@
                             <div class="commit-id">born_test/main#2</div>
                             <div class="commit-type model-update">В РАЗРАБОТКЕ</div>
                         </div>
-                        <div class="commit-title">Реомодель и новая текстура калаша</div>
+                        <div class="commit-title">Обновления от EgorikDev: Что было добавлено за выходные и прошлую неделю</div>
                         <div class="commit-desc">
                             <strong>Разработчик: EgorikDev</strong><br><br>
-                            В процессе полной переработки 3D-модели АК-47 (калаша). Планируются новые высокодетализированные текстуры с PBR материалами. 
-                            Будет улучшена анимация перезарядки и добавлены новые звуковые эффекты.
+                            <strong>Что было добавлено:</strong>
+                            <ul class="update-list">
+                                <li>Система замков</li>
+                                <li>Перезарядка оружия</li>
+                                <li>Когда патроны заканчиваются, то будет идти звук</li>
+                                <li>Система хила (шприцы, бинты скоро)</li>
+                                <li>Пофикшен калаш</li>
+                                <li>В игре будут стикеры</li>
+                                <li>Первая взрывка с4</li>
+                            </ul>
+                            
+                            <strong>ЗБТ на этой неделе не будет, причина:</strong>
+                            <ul class="update-list">
+                                <li>Ошибки в коде в базе данных</li>
+                                <li>Не доделан мультиплеер (осталось только добавить чтобы спавнился худ, игровой контроллер и игрок)</li>
+                            </ul>
+                            
+                            <strong>Изменения в добыче:</strong>
+                            <ul class="update-list">
+                                <li>Например, топор будет добывать дерево</li>
+                                <li>Также с камнем кирка и камень</li>
+                                <li>Переписан скрипт добычи с нуля</li>
+                            </ul>
+                            
+                            <strong>Изменение в карте:</strong>
+                            <ul class="update-list">
+                                <li>Расширена карта</li>
+                                <li>Новые РТ: заброшенный город, атомная станция</li>
+                                <li>Рыбачка</li>
+                            </ul>
+                            
+                            <strong>Другие изменения:</strong>
+                            <ul class="update-list">
+                                <li>Новые текстурки</li>
+                                <li>Новые биомы: зимний и пустыня</li>
+                                <li>Улучшение производительности</li>
+                                <li>Оптимизация</li>
+                                <li>В консоле можно отключить траву</li>
+                                <li>Добавлены грибы и пени (конопля скоро)</li>
+                            </ul>
                         </div>
                         <div class="new-content">
                             <div class="new-content-title">
                                 <i class="fas fa-bullhorn"></i>
-                                Планируемые изменения:
+                                Планируемые изменения (дополнение):
                             </div>
                             <ul>
                                 <li>Добавление учёных и дорог</li>
@@ -548,24 +600,29 @@
                             </div>
                             <div class="detail">
                                 <i class="fas fa-code-branch"></i>
-                                <span>feature/weapon-update</span>
+                                <span>feature/weekly-update</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="commit">
                         <div class="commit-header">
-                            <div class="commit-id">born_test/main#Test</div>
-                            <div class="commit-type bug-fix">НЕТ АКТИВНОСТИ</div>
+                            <div class="commit-id">born_test/main#3</div>
+                            <div class="commit-type feature">ПЛАНИРУЕТСЯ</div>
                         </div>
-                        <div class="commit-title">B1TNEYM - Нет коммитов</div>
+                        <div class="commit-title">Создание лаунчера для ПК версии игры</div>
                         <div class="commit-desc">
                             <strong>Разработчик: B1TNEYM</strong><br><br>
-                            Помогающий разработчик еще не начал работу над проектом. Ожидается участие в будущих задачах.
-                        </div>
-                        <div class="empty-commit">
-                            <i class="fas fa-info-circle"></i>
-                            Этот разработчик пока не сделал ни одного коммита в проект.
+                            Планируется разработка лаунчера для ПК версии игры. Лаунчер будет включать:
+                            <ul class="update-list">
+                                <li>Автоматическое обновление игры</li>
+                                <li>Систему аутентификации</li>
+                                <li>Настройки графики перед запуском</li>
+                                <li>Новости и обновления проекта</li>
+                                <li>Управление версиями игры</li>
+                            </ul>
+                            <br>
+                            <em>Начинание запланировано на 1-2 февраля 2026 года</em>
                         </div>
                         <div class="commit-details">
                             <div class="detail">
@@ -574,11 +631,43 @@
                             </div>
                             <div class="detail">
                                 <i class="far fa-clock"></i>
-                                <span>Нет активности</span>
+                                <span>Планируется</span>
                             </div>
                             <div class="detail">
                                 <i class="fas fa-code-branch"></i>
-                                <span>—</span>
+                                <span>feature/launcher</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="commit">
+                        <div class="commit-header">
+                            <div class="commit-id">born_test/main#4</div>
+                            <div class="commit-type progress">В РАЗРАБОТКЕ</div>
+                        </div>
+                        <div class="commit-title">Обновления за вторник, 13 января</div>
+                        <div class="commit-desc">
+                            <strong>Разработчик: EgorikDev</strong><br><br>
+                            <strong>Что было сделано вчера (13 января):</strong>
+                            <ul class="update-list">
+                                <li>Фикс скриптов (до сих пор есть ошибки)</li>
+                                <li>Почти доделана система аккаунтов и вход по ключу (токен)</li>
+                                <li>Оптимизация сетевого кода</li>
+                                <li>Исправление багов с сохранением прогресса</li>
+                            </ul>
+                        </div>
+                        <div class="commit-details">
+                            <div class="detail">
+                                <i class="fas fa-user"></i>
+                                <span>EgorikDev</span>
+                            </div>
+                            <div class="detail">
+                                <i class="far fa-clock"></i>
+                                <span>В разработке</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-code-branch"></i>
+                                <span>hotfix/january-updates</span>
                             </div>
                         </div>
                     </div>
@@ -588,32 +677,32 @@
         
         <footer>
             <p>Superice Games • Проект Born_Test • Главный разработчик: <a href="https://t.me/egorikdev" target="_blank" style="color: #58a6ff;">EgorikDev</a></p>
-            <p style="margin-top: 5px;">Сайт обновляется автоматически • Текущая дата: 27 декабря 2025, 16:10</p>
-            <p>Born Telegram channel-@borngames<p>
+            <p style="margin-top: 5px;">Сайт обновляется автоматически • Текущая дата: 14 января 2026, 16:10</p>
+            <p>Born Telegram channel-@borngames</p>
         </footer>
     </div>
 
     <script>
         // Автоматический расчет статистики
         document.addEventListener('DOMContentLoaded', function() {
-            // Начальная дата проекта (сегодня минус 30 дней)
+            // Начальная дата проекта (сегодня минус 45 дней)
             const startDate = new Date();
-            startDate.setDate(startDate.getDate() - 30);
+            startDate.setDate(startDate.getDate() - 45);
             const today = new Date();
             
             // Разница в днях
             const timeDiff = today.getTime() - startDate.getTime();
             const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
             
-            // Количество коммитов (мало, так как проект только начинается)
-            const commitCount = 3;
+            // Количество коммитов
+            const commitCount = 4;
             
             // Обновляем данные на странице
             document.getElementById('daysCount').textContent = daysDiff;
             document.getElementById('commitCount').textContent = commitCount;
             
             // Обновляем количество задач в работе
-            document.getElementById('completedTasks').textContent = 2;
+            document.getElementById('completedTasks').textContent = 4;
             
             // Обновляем количество релизов
             document.getElementById('openIssues').textContent = 0;
@@ -638,7 +727,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const progressFill = document.querySelector('.progress-fill');
             let width = 0;
-            const targetWidth = 45; // Проект только начинается
+            const targetWidth = 60; // Проект активно развивается
             const interval = setInterval(() => {
                 if (width >= targetWidth) {
                     clearInterval(interval);
