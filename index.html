@@ -18,7 +18,7 @@
             color: #c9d1d9;
             line-height: 1.6;
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
@@ -28,6 +28,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             border: 1px solid #30363d;
+            position: relative;
         }
         
         header {
@@ -215,6 +216,7 @@
         .main-content {
             flex: 1;
             padding: 30px;
+            position: relative;
         }
         
         .post-date {
@@ -241,6 +243,7 @@
             margin-bottom: 20px;
             border: 1px solid #30363d;
             transition: transform 0.2s, border-color 0.2s;
+            position: relative;
         }
         
         .commit:hover {
@@ -297,6 +300,11 @@
         .progress {
             background-color: rgba(255, 211, 77, 0.15);
             color: #ffd366;
+        }
+        
+        .planning {
+            background-color: rgba(189, 147, 249, 0.15);
+            color: #bc8cf2;
         }
         
         .commit-title {
@@ -391,6 +399,242 @@
             margin-bottom: 5px;
         }
         
+        /* Админ панель стили */
+        .admin-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .admin-btn {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-btn:hover {
+            background-color: #2ea043;
+        }
+        
+        .admin-login {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .login-form {
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .login-form h2 {
+            color: #58a6ff;
+            margin-bottom: 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #c9d1d9;
+            font-weight: 600;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background-color: #2ea043;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .close-btn:hover {
+            color: #f85149;
+        }
+        
+        .logout-btn {
+            background-color: #da3633;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #f85149;
+        }
+        
+        .add-commit-btn {
+            background-color: #1f6feb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        
+        .add-commit-btn:hover {
+            background-color: #388bfd;
+        }
+        
+        .admin-controls {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 140px;
+            z-index: 100;
+        }
+        
+        .admin-controls.show {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .commit-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: none;
+            gap: 8px;
+        }
+        
+        .commit:hover .commit-actions {
+            display: flex;
+        }
+        
+        .action-btn {
+            background: none;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn:hover {
+            color: #58a6ff;
+            border-color: #58a6ff;
+        }
+        
+        .delete-btn:hover {
+            color: #f85149;
+            border-color: #f85149;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #238636;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .notification.error {
+            background-color: #da3633;
+        }
+        
         @media (max-width: 768px) {
             .content {
                 flex-direction: column;
@@ -408,6 +652,13 @@
             
             .stat-box {
                 min-width: 150px;
+            }
+            
+            .admin-panel, .admin-controls {
+                position: static;
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: center;
             }
         }
     </style>
@@ -492,200 +743,130 @@
             </aside>
             
             <main class="main-content">
-                <div class="post-date">
-                    <i class="far fa-calendar-alt"></i>
-                    Сегодня, 14 января 2026 16:10
+                <div class="admin-panel">
+                    <button class="admin-btn" id="adminLoginBtn">
+                        <i class="fas fa-lock"></i> Админ панель
+                    </button>
                 </div>
                 
-                <div class="commits-section">
-                    <div class="commit">
-                        <div class="commit-header">
-                            <div class="commit-id">born_test/main#1</div>
-                            <div class="commit-type feature">ПЛАНИРУЕТСЯ</div>
-                        </div>
-                        <div class="commit-title">Добавление конопли (ткани) и грибов в игру</div>
-                        <div class="commit-desc">
-                            <strong>Разработчик: EgorikDev</strong><br><br>
-                            Планируется добавление новых собираемых ресурсов: конопля (будет использоваться для создания ткани) и различные виды грибов. 
-                            Ресурсы будут генерироваться в определенных биомах с разной вероятностью. Коноплю можно будет переработать в ткань на верстаке.
-                            <br><br>
-                            <em>Запланировано на 26 декабря 2025</em>
-                        </div>
-                        <div class="commit-details">
-                            <div class="detail">
-                                <i class="fas fa-user"></i>
-                                <span>EgorikDev</span>
-                            </div>
-                            <div class="detail">
-                                <i class="far fa-clock"></i>
-                                <span>Планируется</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-code-branch"></i>
-                                <span>feature/new-resources</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="commit">
-                        <div class="commit-header">
-                            <div class="commit-id">born_test/main#2</div>
-                            <div class="commit-type model-update">В РАЗРАБОТКЕ</div>
-                        </div>
-                        <div class="commit-title">Обновления от EgorikDev: Что было добавлено за выходные и прошлую неделю</div>
-                        <div class="commit-desc">
-                            <strong>Разработчик: EgorikDev</strong><br><br>
-                            <strong>Что было добавлено:</strong>
-                            <ul class="update-list">
-                                <li>Система замков</li>
-                                <li>Перезарядка оружия</li>
-                                <li>Когда патроны заканчиваются, то будет идти звук</li>
-                                <li>Система хила (шприцы, бинты скоро)</li>
-                                <li>Пофикшен калаш</li>
-                                <li>В игре будут стикеры</li>
-                                <li>Первая взрывка с4</li>
-                            </ul>
-                            
-                            <strong>ЗБТ на этой неделе не будет, причина:</strong>
-                            <ul class="update-list">
-                                <li>Ошибки в коде в базе данных</li>
-                                <li>Не доделан мультиплеер (осталось только добавить чтобы спавнился худ, игровой контроллер и игрок)</li>
-                            </ul>
-                            
-                            <strong>Изменения в добыче:</strong>
-                            <ul class="update-list">
-                                <li>Например, топор будет добывать дерево</li>
-                                <li>Также с камнем кирка и камень</li>
-                                <li>Переписан скрипт добычи с нуля</li>
-                            </ul>
-                            
-                            <strong>Изменение в карте:</strong>
-                            <ul class="update-list">
-                                <li>Расширена карта</li>
-                                <li>Новые РТ: заброшенный город, атомная станция</li>
-                                <li>Рыбачка</li>
-                            </ul>
-                            
-                            <strong>Другие изменения:</strong>
-                            <ul class="update-list">
-                                <li>Новые текстурки</li>
-                                <li>Новые биомы: зимний и пустыня</li>
-                                <li>Улучшение производительности</li>
-                                <li>Оптимизация</li>
-                                <li>В консоле можно отключить траву</li>
-                                <li>Добавлены грибы и пени (конопля скоро)</li>
-                            </ul>
-                        </div>
-                        <div class="new-content">
-                            <div class="new-content-title">
-                                <i class="fas fa-bullhorn"></i>
-                                Планируемые изменения (дополнение):
-                            </div>
-                            <ul>
-                                <li>Добавление учёных и дорог</li>
-                                <li>Добавление оружия MP5 и томик</li>
-                                <li>Переработка системы прицеливания</li>
-                                <li>Улучшение анимаций</li>
-                                <li>Система кислорода (для воды)</li>
-                            </ul>
-                        </div>
-                        <div class="commit-details">
-                            <div class="detail">
-                                <i class="fas fa-user"></i>
-                                <span>EgorikDev</span>
-                            </div>
-                            <div class="detail">
-                                <i class="far fa-clock"></i>
-                                <span>В разработке</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-code-branch"></i>
-                                <span>feature/weekly-update</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="commit">
-                        <div class="commit-header">
-                            <div class="commit-id">born_test/main#3</div>
-                            <div class="commit-type feature">ПЛАНИРУЕТСЯ</div>
-                        </div>
-                        <div class="commit-title">Создание лаунчера для ПК версии игры</div>
-                        <div class="commit-desc">
-                            <strong>Разработчик: B1TNEYM</strong><br><br>
-                            Планируется разработка лаунчера для ПК версии игры. Лаунчер будет включать:
-                            <ul class="update-list">
-                                <li>Автоматическое обновление игры</li>
-                                <li>Систему аутентификации</li>
-                                <li>Настройки графики перед запуском</li>
-                                <li>Новости и обновления проекта</li>
-                                <li>Управление версиями игры</li>
-                            </ul>
-                            <br>
-                            <em>Начинание запланировано на 1-2 февраля 2026 года</em>
-                        </div>
-                        <div class="commit-details">
-                            <div class="detail">
-                                <i class="fas fa-user"></i>
-                                <span>B1TNEYM</span>
-                            </div>
-                            <div class="detail">
-                                <i class="far fa-clock"></i>
-                                <span>Планируется</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-code-branch"></i>
-                                <span>feature/launcher</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="commit">
-                        <div class="commit-header">
-                            <div class="commit-id">born_test/main#4</div>
-                            <div class="commit-type progress">В РАЗРАБОТКЕ</div>
-                        </div>
-                        <div class="commit-title">Обновления за вторник, 13 января</div>
-                        <div class="commit-desc">
-                            <strong>Разработчик: EgorikDev</strong><br><br>
-                            <strong>Что было сделано вчера (13 января):</strong>
-                            <ul class="update-list">
-                                <li>Фикс скриптов (до сих пор есть ошибки)</li>
-                                <li>Почти доделана система аккаунтов и вход по ключу (токен)</li>
-                                <li>Оптимизация сетевого кода</li>
-                                <li>Исправление багов с сохранением прогресса</li>
-                            </ul>
-                        </div>
-                        <div class="commit-details">
-                            <div class="detail">
-                                <i class="fas fa-user"></i>
-                                <span>EgorikDev</span>
-                            </div>
-                            <div class="detail">
-                                <i class="far fa-clock"></i>
-                                <span>В разработке</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-code-branch"></i>
-                                <span>hotfix/january-updates</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="admin-controls" id="adminControls">
+                    <button class="add-commit-btn" id="addCommitBtn">
+                        <i class="fas fa-plus"></i> Добавить коммит
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+                
+                <div class="post-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="currentDate">Загрузка даты...</span>
+                </div>
+                
+                <div class="commits-section" id="commitsContainer">
+                    <!-- Коммиты будут загружаться динамически -->
                 </div>
             </main>
         </div>
         
         <footer>
             <p>Superice Games • Проект Born_Test • Главный разработчик: <a href="https://t.me/egorikdev" target="_blank" style="color: #58a6ff;">EgorikDev</a></p>
-            <p style="margin-top: 5px;">Сайт обновляется автоматически • Текущая дата: 14 января 2026, 16:10</p>
+            <p style="margin-top: 5px;">Сайт обновляется автоматически • <span id="footerDate">Текущая дата: загрузка...</span></p>
             <p>Born Telegram channel-@borngames</p>
         </footer>
     </div>
+    
+    <!-- Уведомления -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationMessage">Успешно!</span>
+    </div>
+    
+    <!-- Модальное окно логина -->
+    <div class="admin-login" id="adminLoginModal">
+        <div class="login-form">
+            <button class="close-btn" id="closeLoginBtn">&times;</button>
+            <h2><i class="fas fa-user-shield"></i> Вход в админ панель</h2>
+            <div class="form-group">
+                <label for="loginUsername">Логин:</label>
+                <input type="text" id="loginUsername" placeholder="Введите логин">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Пароль:</label>
+                <input type="password" id="loginPassword" placeholder="Введите пароль">
+            </div>
+            <button class="login-btn" id="loginSubmitBtn">Войти</button>
+            
+            <!-- Убрана секция с доступными аккаунтами -->
+        </div>
+    </div>
+    
+    <!-- Модальное окно добавления коммита -->
+    <div class="admin-login" id="addCommitModal">
+        <div class="login-form" style="width: 500px;">
+            <button class="close-btn" id="closeCommitBtn">&times;</button>
+            <h2><i class="fas fa-code-commit"></i> Добавить новый коммит</h2>
+            <div class="form-group">
+                <label for="commitTitle">Название коммита:</label>
+                <input type="text" id="commitTitle" placeholder="Введите название коммита">
+            </div>
+            <div class="form-group">
+                <label for="commitDescription">Описание коммита:</label>
+                <textarea id="commitDescription" placeholder="Введите подробное описание коммита"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="commitAuthor">Автор:</label>
+                <select id="commitAuthor">
+                    <option value="EgorikDev">EgorikDev</option>
+                    <option value="B1TNEYM">B1TNEYM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="commitType">Тип коммита:</label>
+                <select id="commitType">
+                    <option value="feature">Новая функция</option>
+                    <option value="bug-fix">Исправление бага</option>
+                    <option value="model-update">Обновление модели</option>
+                    <option value="content-update">Обновление контента</option>
+                    <option value="progress">В разработке</option>
+                    <option value="planning">Планируется</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="commitBranch">Ветка:</label>
+                <input type="text" id="commitBranch" placeholder="Например: feature/new-update">
+            </div>
+            <div class="form-group">
+                <label for="commitStatus">Статус:</label>
+                <select id="commitStatus">
+                    <option value="В разработке">В разработке</option>
+                    <option value="Планируется">Планируется</option>
+                    <option value="Завершено">Завершено</option>
+                    <option value="Отложено">Отложено</option>
+                </select>
+            </div>
+            <button class="login-btn" id="addCommitSubmitBtn">Добавить коммит</button>
+        </div>
+    </div>
 
     <script>
-        // Автоматический расчет статистики
+        // Данные для аутентификации (скрыты от пользователей)
+        const accounts = {
+            "EgorikDev": "G7dgEm#8",
+            "B1TNEYM": "LauncherCreateBruh#10"
+        };
+        
+        // Ключ для хранения данных в localStorage
+        const STORAGE_KEY = 'born_test_commits_data';
+        const USERS_KEY = 'born_test_users_data';
+        
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Начальная дата проекта (сегодня минус 45 дней)
+            updateCurrentDate();
+            loadCommitsFromStorage();
+            updateStats();
+            
+            // Начальная дата проекта
             const startDate = new Date();
             startDate.setDate(startDate.getDate() - 45);
             const today = new Date();
@@ -694,40 +875,12 @@
             const timeDiff = today.getTime() - startDate.getTime();
             const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
             
-            // Количество коммитов
-            const commitCount = 4;
-            
-            // Обновляем данные на странице
             document.getElementById('daysCount').textContent = daysDiff;
-            document.getElementById('commitCount').textContent = commitCount;
             
-            // Обновляем количество задач в работе
-            document.getElementById('completedTasks').textContent = 4;
-            
-            // Обновляем количество релизов
-            document.getElementById('openIssues').textContent = 0;
-        });
-        
-        // Анимация появления коммитов
-        window.addEventListener('load', function() {
-            const commits = document.querySelectorAll('.commit');
-            commits.forEach((commit, index) => {
-                commit.style.opacity = '0';
-                commit.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    commit.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    commit.style.opacity = '1';
-                    commit.style.transform = 'translateY(0)';
-                }, index * 150);
-            });
-        });
-        
-        // Анимация прогресс-бара
-        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация прогресс-бара
             const progressFill = document.querySelector('.progress-fill');
             let width = 0;
-            const targetWidth = 60; // Проект активно развивается
+            const targetWidth = 60;
             const interval = setInterval(() => {
                 if (width >= targetWidth) {
                     clearInterval(interval);
@@ -736,10 +889,8 @@
                 width++;
                 progressFill.style.width = width + '%';
             }, 20);
-        });
-        
-        // Анимация молнии
-        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Анимация молнии
             const lightning = document.querySelector('.default-avatar i');
             let isGlowing = false;
             
@@ -753,7 +904,484 @@
                 }
                 isGlowing = !isGlowing;
             }, 1000);
+            
+            // Проверяем, есть ли сохраненная сессия
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser && accounts[savedUser]) {
+                currentUser = savedUser;
+                showAdminControls();
+            }
         });
+        
+        // Обновление текущей даты
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            const dateString = now.toLocaleDateString('ru-RU', options);
+            
+            currentDateElement.textContent = `Сегодня, ${dateString}`;
+            footerDateElement.textContent = `Текущая дата: ${dateString}`;
+        }
+        
+        // Загрузка коммитов из localStorage
+        function loadCommitsFromStorage() {
+            const savedCommits = localStorage.getItem(STORAGE_KEY);
+            if (savedCommits) {
+                commits = JSON.parse(savedCommits);
+            } else {
+                // Инициализируем начальные данные, если их нет в хранилище
+                saveCommitsToStorage();
+            }
+            renderCommits();
+        }
+        
+        // Сохранение коммитов в localStorage
+        function saveCommitsToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(commits));
+        }
+        
+        // Показать уведомление
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const messageElement = document.getElementById('notificationMessage');
+            
+            messageElement.textContent = message;
+            notification.className = isError ? 'notification error' : 'notification';
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Рендер коммитов
+        function renderCommits() {
+            commitsContainer.innerHTML = '';
+            
+            // Сортируем коммиты по ID (обратный порядок - новые сверху)
+            const sortedCommits = [...commits].sort((a, b) => b.id - a.id);
+            
+            sortedCommits.forEach(commit => {
+                const commitElement = document.createElement('div');
+                commitElement.className = 'commit';
+                commitElement.id = `commit-${commit.id}`;
+                
+                // Определяем класс типа коммита
+                let typeClass = '';
+                let typeText = '';
+                
+                switch(commit.type) {
+                    case 'feature':
+                        typeClass = 'feature';
+                        typeText = 'ФУНКЦИЯ';
+                        break;
+                    case 'bug-fix':
+                        typeClass = 'bug-fix';
+                        typeText = 'ИСПРАВЛЕНИЕ';
+                        break;
+                    case 'model-update':
+                        typeClass = 'model-update';
+                        typeText = 'ОБНОВЛЕНИЕ';
+                        break;
+                    case 'content-update':
+                        typeClass = 'content-update';
+                        typeText = 'КОНТЕНТ';
+                        break;
+                    case 'progress':
+                        typeClass = 'progress';
+                        typeText = 'В РАЗРАБОТКЕ';
+                        break;
+                    case 'planning':
+                        typeClass = 'planning';
+                        typeText = 'ПЛАНИРУЕТСЯ';
+                        break;
+                }
+                
+                // Определяем текст статуса
+                let statusText = commit.status;
+                if (commit.status === "В разработке") statusText = "В РАЗРАБОТКЕ";
+                if (commit.status === "Планируется") statusText = "ПЛАНИРУЕТСЯ";
+                if (commit.status === "Завершено") statusText = "ЗАВЕРШЕНО";
+                if (commit.status === "Отложено") statusText = "ОТЛОЖЕНО";
+                
+                commitElement.innerHTML = `
+                    <div class="commit-actions">
+                        <button class="action-btn edit-btn" onclick="editCommit(${commit.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteCommit(${commit.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="commit-header">
+                        <div class="commit-id">born_test/main#${commit.id}</div>
+                        <div class="commit-type ${typeClass}">${statusText}</div>
+                    </div>
+                    <div class="commit-title">${commit.title}</div>
+                    <div class="commit-desc">${commit.description}</div>
+                    ${commit.additionalContent || ''}
+                    <div class="commit-details">
+                        <div class="detail">
+                            <i class="fas fa-user"></i>
+                            <span>${commit.author}</span>
+                        </div>
+                        <div class="detail">
+                            <i class="far fa-clock"></i>
+                            <span>${commit.date}</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-code-branch"></i>
+                            <span>${commit.branch}</span>
+                        </div>
+                    </div>
+                `;
+                
+                commitsContainer.appendChild(commitElement);
+                
+                // Анимация появления
+                setTimeout(() => {
+                    commitElement.style.opacity = '0';
+                    commitElement.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        commitElement.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        commitElement.style.opacity = '1';
+                        commitElement.style.transform = 'translateY(0)';
+                    }, 50);
+                }, 50);
+            });
+        }
+        
+        // Обновление статистики
+        function updateStats() {
+            document.getElementById('completedTasks').textContent = commits.length;
+            document.getElementById('commitCount').textContent = commits.length;
+            
+            // Считаем активных разработчиков
+            const authors = [...new Set(commits.map(c => c.author))];
+            document.getElementById('activeContributors').textContent = Math.max(2, authors.length);
+        }
+        
+        // Показать админ-панель
+        function showAdminControls() {
+            adminControls.classList.add('show');
+            addCommitBtn.style.display = 'flex';
+            logoutBtn.style.display = 'flex';
+        }
+        
+        // Скрыть админ-панель
+        function hideAdminControls() {
+            adminControls.classList.remove('show');
+            addCommitBtn.style.display = 'none';
+            logoutBtn.style.display = 'none';
+        }
+        
+        // Вход в систему
+        loginSubmitBtn.addEventListener('click', function() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (accounts[username] && accounts[username] === password) {
+                currentUser = username;
+                localStorage.setItem('currentUser', username);
+                
+                adminLoginModal.style.display = 'none';
+                showAdminControls();
+                
+                showNotification(`Добро пожаловать, ${username}!`);
+                
+                // Очищаем поля
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
+            } else {
+                showNotification('Неверный логин или пароль!', true);
+            }
+        });
+        
+        // Выход из системы
+        logoutBtn.addEventListener('click', function() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            hideAdminControls();
+            showNotification('Вы вышли из системы.');
+        });
+        
+        // Открыть модальное окно логина
+        adminLoginBtn.addEventListener('click', function() {
+            adminLoginModal.style.display = 'flex';
+        });
+        
+        // Закрыть модальное окно логина
+        closeLoginBtn.addEventListener('click', function() {
+            adminLoginModal.style.display = 'none';
+        });
+        
+        // Открыть модальное окно добавления коммита
+        addCommitBtn.addEventListener('click', function() {
+            addCommitModal.style.display = 'flex';
+            
+            // Устанавливаем текущего пользователя как автора по умолчанию
+            if (currentUser) {
+                document.getElementById('commitAuthor').value = currentUser;
+            }
+            
+            // Генерируем ID для нового коммита
+            const newId = commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1;
+            document.getElementById('commitBranch').value = `feature/update-${newId}`;
+        });
+        
+        // Закрыть модальное окно добавления коммита
+        closeCommitBtn.addEventListener('click', function() {
+            addCommitModal.style.display = 'none';
+            clearCommitForm();
+        });
+        
+        // Очистка формы коммита
+        function clearCommitForm() {
+            document.getElementById('commitTitle').value = '';
+            document.getElementById('commitDescription').value = '';
+            document.getElementById('commitAuthor').value = currentUser || 'EgorikDev';
+            document.getElementById('commitType').value = 'feature';
+            document.getElementById('commitBranch').value = '';
+            document.getElementById('commitStatus').value = 'В разработке';
+        }
+        
+        // Добавление нового коммита
+        addCommitSubmitBtn.addEventListener('click', function() {
+            const title = document.getElementById('commitTitle').value;
+            const description = document.getElementById('commitDescription').value;
+            const author = document.getElementById('commitAuthor').value;
+            const type = document.getElementById('commitType').value;
+            const branch = document.getElementById('commitBranch').value;
+            const status = document.getElementById('commitStatus').value;
+            
+            if (!title || !description || !branch) {
+                showNotification('Заполните все обязательные поля!', true);
+                return;
+            }
+            
+            // Создаем дату
+            const now = new Date();
+            const dateString = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            // Создаем новый коммит
+            const newCommit = {
+                id: commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1,
+                title: title,
+                description: `<strong>Разработчик: ${author}</strong><br><br>${description.replace(/\n/g, '<br>')}`,
+                author: author,
+                type: type,
+                branch: branch,
+                status: status,
+                date: dateString
+            };
+            
+            commits.push(newCommit);
+            saveCommitsToStorage(); // Сохраняем в localStorage для всех пользователей
+            renderCommits();
+            updateStats();
+            
+            // Закрываем модальное окно
+            addCommitModal.style.display = 'none';
+            clearCommitForm();
+            
+            showNotification('Коммит успешно добавлен для всех пользователей!');
+        });
+        
+        // Редактирование коммита
+        function editCommit(id) {
+            const commit = commits.find(c => c.id === id);
+            if (!commit) return;
+            
+            const newTitle = prompt('Введите новое название коммита:', commit.title);
+            if (newTitle === null) return;
+            
+            // Убираем HTML теги для отображения в prompt
+            const cleanDescription = commit.description
+                .replace(/<br><br>/g, '\n\n')
+                .replace(/<br>/g, '\n')
+                .replace(/<strong>.*?<\/strong>/g, '')
+                .replace(/<ul class="update-list">/g, '')
+                .replace(/<\/ul>/g, '')
+                .replace(/<li>/g, '• ')
+                .replace(/<\/li>/g, '\n');
+            
+            const newDescription = prompt('Введите новое описание коммита:', cleanDescription);
+            if (newDescription === null) return;
+            
+            const newStatus = prompt('Введите новый статус (В разработке/Планируется/Завершено/Отложено):', commit.status);
+            if (newStatus === null) return;
+            
+            commit.title = newTitle;
+            commit.description = `<strong>Разработчик: ${commit.author}</strong><br><br>${newDescription.replace(/\n/g, '<br>')}`;
+            commit.status = newStatus;
+            
+            // Обновляем дату
+            const now = new Date();
+            commit.date = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            saveCommitsToStorage(); // Сохраняем изменения для всех пользователей
+            renderCommits();
+            showNotification('Коммит успешно обновлен для всех пользователей!');
+        }
+        
+        // Удаление коммита
+        function deleteCommit(id) {
+            if (!confirm('Вы уверены, что хотите удалить этот коммит? Все пользователи больше не увидят его.')) return;
+            
+            commits = commits.filter(c => c.id !== id);
+            saveCommitsToStorage(); // Сохраняем изменения для всех пользователей
+            renderCommits();
+            updateStats();
+            
+            showNotification('Коммит успешно удален для всех пользователей!');
+        }
+        
+        // Вспомогательная функция для получения названия месяца
+        function getMonthName(monthIndex) {
+            const months = [
+                'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+            ];
+            return months[monthIndex];
+        }
+        
+        // Закрытие модальных окон при клике вне их
+        window.addEventListener('click', function(event) {
+            if (event.target === adminLoginModal) {
+                adminLoginModal.style.display = 'none';
+            }
+            if (event.target === addCommitModal) {
+                addCommitModal.style.display = 'none';
+                clearCommitForm();
+            }
+        });
+        
+        // DOM элементы
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const closeLoginBtn = document.getElementById('closeLoginBtn');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const adminControls = document.getElementById('adminControls');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const addCommitBtn = document.getElementById('addCommitBtn');
+        const addCommitModal = document.getElementById('addCommitModal');
+        const closeCommitBtn = document.getElementById('closeCommitBtn');
+        const addCommitSubmitBtn = document.getElementById('addCommitSubmitBtn');
+        const commitsContainer = document.getElementById('commitsContainer');
+        const currentDateElement = document.getElementById('currentDate');
+        const footerDateElement = document.getElementById('footerDate');
+        
+        // Глобальная переменная для коммитов
+        let commits = [
+            {
+                id: 1,
+                title: "Добавление конопли (ткани) и грибов в игру",
+                description: "<strong>Разработчик: EgorikDev</strong><br><br>Планируется добавление новых собираемых ресурсов: конопля (будет использоваться для создания ткани) и различные виды грибов. Ресурсы будут генерироваться в определенных биомах с разной вероятностью. Коноплю можно будет переработать в ткань на верстаке.<br><br><em>Запланировано на 26 декабря 2025</em>",
+                author: "EgorikDev",
+                type: "feature",
+                branch: "feature/new-resources",
+                status: "Планируется",
+                date: "27 декабря 2025 16:10"
+            },
+            {
+                id: 2,
+                title: "Обновления от EgorikDev: Что было добавлено за выходные и прошлую неделю",
+                description: `<strong>Разработчик: EgorikDev</strong><br><br>
+                    <strong>Что было добавлено:</strong>
+                    <ul class="update-list">
+                        <li>Система замков</li>
+                        <li>Перезарядка оружия</li>
+                        <li>Когда патроны заканчиваются, то будет идти звук</li>
+                        <li>Система хила (шприцы, бинты скоро)</li>
+                        <li>Пофикшен калаш</li>
+                        <li>В игре будут стикеры</li>
+                        <li>Первая взрывка с4</li>
+                    </ul>
+                    
+                    <strong>ЗБТ на этой неделе не будет, причина:</strong>
+                    <ul class="update-list">
+                        <li>Ошибки в коде в базе данных</li>
+                        <li>Не доделан мультиплеер (осталось только добавить чтобы спавнился худ, игровой контроллер и игрок)</li>
+                    </ul>
+                    
+                    <strong>Изменения в добыче:</strong>
+                    <ul class="update-list">
+                        <li>Например, топор будет добывать дерево</li>
+                        <li>Также с камнем кирка и камень</li>
+                        <li>Переписан скрипт добычи с нуля</li>
+                    </ul>
+                    
+                    <strong>Изменение в карте:</strong>
+                    <ul class="update-list">
+                        <li>Расширена карта</li>
+                        <li>Новые РТ: заброшенный город, атомная станция</li>
+                        <li>Рыбачка</li>
+                    </ul>
+                    
+                    <strong>Другие изменения:</strong>
+                    <ul class="update-list">
+                        <li>Новые текстурки</li>
+                        <li>Новые биомы: зимний и пустыня</li>
+                        <li>Улучшение производительности</li>
+                        <li>Оптимизация</li>
+                        <li>В консоле можно отключить траву</li>
+                        <li>Добавлены грибы и пени (конопля скоро)</li>
+                    </ul>`,
+                author: "EgorikDev",
+                type: "model-update",
+                branch: "feature/weekly-update",
+                status: "В разработке",
+                date: "14 января 2026 10:30"
+            },
+            {
+                id: 3,
+                title: "Создание лаунчера для ПК версии игры",
+                description: `<strong>Разработчик: B1TNEYM</strong><br><br>
+                    Планируется разработка лаунчера для ПК версии игры. Лаунчер будет включать:
+                    <ul class="update-list">
+                        <li>Автоматическое обновление игры</li>
+                        <li>Систему аутентификации</li>
+                        <li>Настройки графики перед запуском</li>
+                        <li>Новости и обновления проекта</li>
+                        <li>Управление версиями игры</li>
+                    </ul>
+                    <br>
+                    <em>Начинание запланировано на 1-2 февраля 2026 года</em>`,
+                author: "B1TNEYM",
+                type: "feature",
+                branch: "feature/launcher",
+                status: "Планируется",
+                date: "14 января 2026 14:20"
+            },
+            {
+                id: 4,
+                title: "Обновления за вторник, 13 января",
+                description: `<strong>Разработчик: EgorikDev</strong><br><br>
+                    <strong>Что было сделано вчера (13 января):</strong>
+                    <ul class="update-list">
+                        <li>Фикс скриптов (до сих пор есть ошибки)</li>
+                        <li>Почти доделана система аккаунтов и вход по ключу (токен)</li>
+                        <li>Оптимизация сетевого кода</li>
+                        <li>Исправление багов с сохранением прогресса</li>
+                    </ul>`,
+                author: "EgorikDev",
+                type: "progress",
+                branch: "hotfix/january-updates",
+                status: "В разработке",
+                date: "14 января 2026 16:05"
+            }
+        ];
+        
+        // Текущий пользователь
+        let currentUser = null;
     </script>
 </body>
 </html>
