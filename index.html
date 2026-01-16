@@ -635,6 +635,20 @@
             background-color: #da3633;
         }
         
+        .test-login {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #21262d;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            font-size: 12px;
+            color: #8b949e;
+            z-index: 999;
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .content {
                 flex-direction: column;
@@ -664,6 +678,11 @@
     </style>
 </head>
 <body>
+    <!-- Тестовая панель (только для разработки) -->
+    <div class="test-login" id="testLogin">
+        Тестовые аккаунты загружены
+    </div>
+    
     <div class="container">
         <header>
             <div class="header-content">
@@ -796,14 +815,6 @@
                 <input type="password" id="loginPassword" placeholder="Введите пароль">
             </div>
             <button class="login-btn" id="loginSubmitBtn">Войти</button>
-            
-            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #30363d;">
-                <p style="font-size: 0.85rem; color: #8b949e; text-align: center;">
-                    Доступные аккаунты:<br>
-                    EgorikDev / G7dgEm#8<br>
-                    B1TNEYM / LauncherCreateBruh#10
-                </p>
-            </div>
         </div>
     </div>
     
@@ -856,14 +867,14 @@
     </div>
 
     <script>
-        // Данные для аутентификации
-        const accounts = {
+        // Данные для аутентификации (ТОЛЬКО В КОДЕ)
+        const ACCOUNTS = {
             "EgorikDev": "G7dgEm#8",
             "B1TNEYM": "LauncherCreateBruh#10"
         };
         
-        // Начальные данные коммитов (встроены в код)
-        const defaultCommits = [
+        // Начальные данные коммитов
+        const DEFAULT_COMMITS = [
             {
                 id: 1,
                 title: "Добавление конопли (ткани) и грибов в игру",
@@ -963,227 +974,74 @@
             }
         ];
         
-        // Глобальная переменная для коммитов
-        let commits = [...defaultCommits];
-        // Текущий пользователь
+        // Глобальные переменные
+        let commits = [];
         let currentUser = null;
         
-        // Инициализация при загрузке страницы
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
+            console.log("Страница загружена, запускаем инициализацию...");
+            
+            // Загружаем коммиты
+            loadCommits();
+            
             // Обновляем дату
             updateCurrentDate();
             
             // Рендерим коммиты
             renderCommits();
             
-            // Настраиваем обработчики событий
+            // Настраиваем события
             setupEventListeners();
             
             // Анимация прогресс-бара
-            const progressFill = document.querySelector('.progress-fill');
-            let width = 0;
-            const targetWidth = 60;
-            const interval = setInterval(() => {
-                if (width >= targetWidth) {
-                    clearInterval(interval);
-                    return;
-                }
-                width++;
-                progressFill.style.width = width + '%';
-            }, 20);
+            animateProgressBar();
             
             // Анимация молнии
-            const lightning = document.querySelector('.default-avatar i');
-            let isGlowing = false;
+            animateLightning();
             
-            setInterval(() => {
-                if (isGlowing) {
-                    lightning.style.color = '#58a6ff';
-                    lightning.style.textShadow = 'none';
-                } else {
-                    lightning.style.color = '#ffd700';
-                    lightning.style.textShadow = '0 0 10px #ffd700, 0 0 20px #ffd700';
-                }
-                isGlowing = !isGlowing;
-            }, 1000);
+            // Проверяем авторизацию
+            checkAuth();
             
-            // Проверяем, есть ли сохраненная сессия (работает только локально)
-            try {
-                const savedUser = localStorage.getItem('currentUser');
-                if (savedUser && accounts[savedUser]) {
-                    currentUser = savedUser;
-                    showAdminControls();
-                }
-            } catch (e) {
-                // localStorage может быть недоступен на GitHub Pages
-                console.log("localStorage недоступен, работаем без сохранения сессии");
-            }
+            // Показываем тестовую панель
+            document.getElementById('testLogin').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('testLogin').style.display = 'none';
+            }, 3000);
+            
+            console.log("Инициализация завершена");
         });
         
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Получаем DOM элементы
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
-            const adminLoginModal = document.getElementById('adminLoginModal');
-            const closeLoginBtn = document.getElementById('closeLoginBtn');
-            const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-            const adminControls = document.getElementById('adminControls');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const addCommitBtn = document.getElementById('addCommitBtn');
-            const addCommitModal = document.getElementById('addCommitModal');
-            const closeCommitBtn = document.getElementById('closeCommitBtn');
-            const addCommitSubmitBtn = document.getElementById('addCommitSubmitBtn');
-            
-            // Вход в систему
-            loginSubmitBtn.addEventListener('click', function() {
-                const username = document.getElementById('loginUsername').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                if (accounts[username] && accounts[username] === password) {
-                    currentUser = username;
-                    
-                    // Пытаемся сохранить в localStorage (работает локально)
-                    try {
-                        localStorage.setItem('currentUser', username);
-                    } catch (e) {
-                        // Игнорируем ошибки localStorage
-                    }
-                    
-                    adminLoginModal.style.display = 'none';
-                    showAdminControls();
-                    
-                    showNotification(`Добро пожаловать, ${username}!`);
-                    
-                    // Очищаем поля
-                    document.getElementById('loginUsername').value = '';
-                    document.getElementById('loginPassword').value = '';
-                } else {
-                    showNotification('Неверный логин или пароль!', true);
-                }
-            });
-            
-            // Выход из системы
-            logoutBtn.addEventListener('click', function() {
-                currentUser = null;
-                
-                // Пытаемся удалить из localStorage
-                try {
-                    localStorage.removeItem('currentUser');
-                } catch (e) {
-                    // Игнорируем ошибки
-                }
-                
-                hideAdminControls();
-                showNotification('Вы вышли из системы.');
-            });
-            
-            // Открыть модальное окно логина
-            adminLoginBtn.addEventListener('click', function() {
-                adminLoginModal.style.display = 'flex';
-            });
-            
-            // Закрыть модальное окно логина
-            closeLoginBtn.addEventListener('click', function() {
-                adminLoginModal.style.display = 'none';
-            });
-            
-            // Открыть модальное окно добавления коммита
-            addCommitBtn.addEventListener('click', function() {
-                addCommitModal.style.display = 'flex';
-                
-                // Устанавливаем текущего пользователя как автора по умолчанию
-                if (currentUser) {
-                    document.getElementById('commitAuthor').value = currentUser;
-                }
-                
-                // Генерируем ID для нового коммита
-                const newId = commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1;
-                document.getElementById('commitBranch').value = `feature/update-${newId}`;
-            });
-            
-            // Закрыть модальное окно добавления коммита
-            closeCommitBtn.addEventListener('click', function() {
-                addCommitModal.style.display = 'none';
-                clearCommitForm();
-            });
-            
-            // Добавление нового коммита
-            addCommitSubmitBtn.addEventListener('click', function() {
-                const title = document.getElementById('commitTitle').value;
-                const description = document.getElementById('commitDescription').value;
-                const author = document.getElementById('commitAuthor').value;
-                const type = document.getElementById('commitType').value;
-                const branch = document.getElementById('commitBranch').value;
-                const status = document.getElementById('commitStatus').value;
-                
-                if (!title || !description || !branch) {
-                    showNotification('Заполните все обязательные поля!', true);
-                    return;
-                }
-                
-                // Создаем дату
-                const now = new Date();
-                const dateString = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-                
-                // Создаем новый коммит
-                const newCommit = {
-                    id: commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1,
-                    title: title,
-                    description: `<strong>Разработчик: ${author}</strong><br><br>${description.replace(/\n/g, '<br>')}`,
-                    author: author,
-                    type: type,
-                    branch: branch,
-                    status: status,
-                    date: dateString
-                };
-                
-                commits.push(newCommit);
-                
-                // Пытаемся сохранить в localStorage
-                try {
-                    localStorage.setItem('born_test_commits', JSON.stringify(commits));
-                } catch (e) {
-                    // Игнорируем ошибки
-                }
-                
-                renderCommits();
-                updateStats();
-                
-                // Закрываем модальное окно
-                addCommitModal.style.display = 'none';
-                clearCommitForm();
-                
-                showNotification('Коммит успешно добавлен!');
-            });
-            
-            // Закрытие модальных окон при клике вне их
-            window.addEventListener('click', function(event) {
-                if (event.target === adminLoginModal) {
-                    adminLoginModal.style.display = 'none';
-                }
-                if (event.target === addCommitModal) {
-                    addCommitModal.style.display = 'none';
-                    clearCommitForm();
-                }
-            });
-            
-            // Загружаем сохраненные коммиты из localStorage при запуске
+        // Загрузка коммитов
+        function loadCommits() {
             try {
-                const savedCommits = localStorage.getItem('born_test_commits');
-                if (savedCommits) {
-                    const parsedCommits = JSON.parse(savedCommits);
-                    if (Array.isArray(parsedCommits) && parsedCommits.length > 0) {
-                        commits = parsedCommits;
-                        renderCommits();
-                        updateStats();
-                    }
+                // Пробуем загрузить из localStorage
+                const saved = localStorage.getItem('born_test_commits');
+                if (saved) {
+                    commits = JSON.parse(saved);
+                    console.log("Загружено коммитов из localStorage:", commits.length);
+                } else {
+                    // Используем дефолтные
+                    commits = [...DEFAULT_COMMITS];
+                    console.log("Используем дефолтные коммиты:", commits.length);
                 }
             } catch (e) {
-                // Игнорируем ошибки
+                console.error("Ошибка загрузки коммитов:", e);
+                commits = [...DEFAULT_COMMITS];
             }
         }
         
-        // Обновление текущей даты
+        // Сохранение коммитов
+        function saveCommits() {
+            try {
+                localStorage.setItem('born_test_commits', JSON.stringify(commits));
+                console.log("Коммиты сохранены:", commits.length);
+            } catch (e) {
+                console.error("Ошибка сохранения:", e);
+            }
+        }
+        
+        // Обновление даты
         function updateCurrentDate() {
             const now = new Date();
             const options = { 
@@ -1200,112 +1058,197 @@
             document.getElementById('footerDate').textContent = `Текущая дата: ${dateString}`;
         }
         
-        // Показать уведомление
-        function showNotification(message, isError = false) {
-            const notification = document.getElementById('notification');
-            const messageElement = document.getElementById('notificationMessage');
+        // Настройка событий
+        function setupEventListeners() {
+            // Кнопка админ панели
+            document.getElementById('adminLoginBtn').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'flex';
+            });
             
-            messageElement.textContent = message;
-            notification.className = isError ? 'notification error' : 'notification';
-            notification.style.display = 'flex';
+            // Закрытие модалки логина
+            document.getElementById('closeLoginBtn').addEventListener('click', () => {
+                document.getElementById('adminLoginModal').style.display = 'none';
+            });
             
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+            // Вход
+            document.getElementById('loginSubmitBtn').addEventListener('click', handleLogin);
+            
+            // Выход
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // Добавление коммита
+            document.getElementById('addCommitBtn').addEventListener('click', () => {
+                document.getElementById('addCommitModal').style.display = 'flex';
+                if (currentUser) {
+                    document.getElementById('commitAuthor').value = currentUser;
+                }
+                const newId = commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1;
+                document.getElementById('commitBranch').value = `feature/update-${newId}`;
+            });
+            
+            // Закрытие модалки добавления
+            document.getElementById('closeCommitBtn').addEventListener('click', () => {
+                document.getElementById('addCommitModal').style.display = 'none';
+                clearCommitForm();
+            });
+            
+            // Отправка формы добавления
+            document.getElementById('addCommitSubmitBtn').addEventListener('click', handleAddCommit);
+            
+            // Закрытие модалок по клику вне
+            window.addEventListener('click', (e) => {
+                if (e.target === document.getElementById('adminLoginModal')) {
+                    document.getElementById('adminLoginModal').style.display = 'none';
+                }
+                if (e.target === document.getElementById('addCommitModal')) {
+                    document.getElementById('addCommitModal').style.display = 'none';
+                    clearCommitForm();
+                }
+            });
+            
+            // Горячие клавиши для отладки
+            document.addEventListener('keydown', (e) => {
+                // Ctrl+Alt+L для быстрого входа как EgorikDev
+                if (e.ctrlKey && e.altKey && e.key === 'l') {
+                    e.preventDefault();
+                    currentUser = 'EgorikDev';
+                    showAdminControls();
+                    showNotification('Быстрый вход как EgorikDev');
+                }
+            });
+        }
+        
+        // Обработка входа
+        function handleLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            console.log("Попытка входа:", username);
+            
+            if (!username || !password) {
+                showNotification('Заполните все поля!', true);
+                return;
+            }
+            
+            if (ACCOUNTS[username] && ACCOUNTS[username] === password) {
+                currentUser = username;
+                try {
+                    localStorage.setItem('currentUser', username);
+                } catch (e) {
+                    console.error("Ошибка сохранения пользователя:", e);
+                }
+                
+                document.getElementById('adminLoginModal').style.display = 'none';
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
+                
+                showAdminControls();
+                showNotification(`Добро пожаловать, ${username}!`);
+                
+                console.log("Успешный вход:", username);
+            } else {
+                showNotification('Неверный логин или пароль!', true);
+                console.log("Неудачный вход:", username);
+            }
+        }
+        
+        // Обработка выхода
+        function handleLogout() {
+            currentUser = null;
+            try {
+                localStorage.removeItem('currentUser');
+            } catch (e) {
+                console.error("Ошибка удаления пользователя:", e);
+            }
+            
+            hideAdminControls();
+            showNotification('Вы вышли из системы.');
+            console.log("Выход из системы");
+        }
+        
+        // Проверка авторизации
+        function checkAuth() {
+            try {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser && ACCOUNTS[savedUser]) {
+                    currentUser = savedUser;
+                    showAdminControls();
+                    console.log("Авторизован как:", savedUser);
+                }
+            } catch (e) {
+                console.error("Ошибка проверки авторизации:", e);
+            }
+        }
+        
+        // Показать админ-панель
+        function showAdminControls() {
+            document.getElementById('adminControls').classList.add('show');
+            document.getElementById('addCommitBtn').style.display = 'flex';
+            document.getElementById('logoutBtn').style.display = 'flex';
+            renderCommits(); // Перерисовываем с кнопками
+        }
+        
+        // Скрыть админ-панель
+        function hideAdminControls() {
+            document.getElementById('adminControls').classList.remove('show');
+            document.getElementById('addCommitBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+            renderCommits(); // Перерисовываем без кнопок
         }
         
         // Рендер коммитов
         function renderCommits() {
-            const commitsContainer = document.getElementById('commitsContainer');
-            commitsContainer.innerHTML = '';
+            const container = document.getElementById('commitsContainer');
+            if (!container) return;
             
             if (commits.length === 0) {
-                commitsContainer.innerHTML = '<div class="empty-commit">Нет коммитов. Войдите в админ-панель чтобы добавить первый коммит.</div>';
+                container.innerHTML = '<div class="empty-commit">Нет коммитов. Войдите в админ-панель чтобы добавить первый коммит.</div>';
                 return;
             }
             
-            // Сортируем коммиты по ID (обратный порядок - новые сверху)
-            const sortedCommits = [...commits].sort((a, b) => b.id - a.id);
+            // Сортируем по ID (новые сверху)
+            const sorted = [...commits].sort((a, b) => b.id - a.id);
             
-            sortedCommits.forEach(commit => {
-                const commitElement = document.createElement('div');
-                commitElement.className = 'commit';
-                commitElement.id = `commit-${commit.id}`;
-                
-                // Определяем класс типа коммита
-                let typeClass = '';
-                let typeText = '';
-                
-                switch(commit.type) {
-                    case 'feature':
-                        typeClass = 'feature';
-                        typeText = 'ФУНКЦИЯ';
-                        break;
-                    case 'bug-fix':
-                        typeClass = 'bug-fix';
-                        typeText = 'ИСПРАВЛЕНИЕ';
-                        break;
-                    case 'model-update':
-                        typeClass = 'model-update';
-                        typeText = 'ОБНОВЛЕНИЕ';
-                        break;
-                    case 'content-update':
-                        typeClass = 'content-update';
-                        typeText = 'КОНТЕНТ';
-                        break;
-                    case 'progress':
-                        typeClass = 'progress';
-                        typeText = 'В РАЗРАБОТКЕ';
-                        break;
-                    case 'planning':
-                        typeClass = 'planning';
-                        typeText = 'ПЛАНИРУЕТСЯ';
-                        break;
-                }
-                
-                // Определяем текст статуса
-                let statusText = commit.status;
-                if (commit.status === "В разработке") statusText = "В РАЗРАБОТКЕ";
-                if (commit.status === "Планируется") statusText = "ПЛАНИРУЕТСЯ";
-                if (commit.status === "Завершено") statusText = "ЗАВЕРШЕНО";
-                if (commit.status === "Отложено") statusText = "ОТЛОЖЕНО";
-                
-                // Кнопки действий (только для админов)
-                const actionsHtml = currentUser ? `<div class="commit-actions">
-                    <button class="action-btn edit-btn" onclick="editCommit(${commit.id})">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn" onclick="deleteCommit(${commit.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>` : '';
-                
-                commitElement.innerHTML = `
-                    ${actionsHtml}
-                    <div class="commit-header">
-                        <div class="commit-id">born_test/main#${commit.id}</div>
-                        <div class="commit-type ${typeClass}">${statusText}</div>
+            container.innerHTML = sorted.map(commit => {
+                const typeClass = getTypeClass(commit.type);
+                const statusText = getStatusText(commit.status);
+                const actions = currentUser ? `
+                    <div class="commit-actions">
+                        <button class="action-btn edit-btn" onclick="window.editCommit(${commit.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="window.deleteCommit(${commit.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
-                    <div class="commit-title">${commit.title}</div>
-                    <div class="commit-desc">${commit.description}</div>
-                    <div class="commit-details">
-                        <div class="detail">
-                            <i class="fas fa-user"></i>
-                            <span>${commit.author}</span>
+                ` : '';
+                
+                return `
+                    <div class="commit" id="commit-${commit.id}">
+                        ${actions}
+                        <div class="commit-header">
+                            <div class="commit-id">born_test/main#${commit.id}</div>
+                            <div class="commit-type ${typeClass}">${statusText}</div>
                         </div>
-                        <div class="detail">
-                            <i class="far fa-clock"></i>
-                            <span>${commit.date}</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-code-branch"></i>
-                            <span>${commit.branch}</span>
+                        <div class="commit-title">${commit.title}</div>
+                        <div class="commit-desc">${commit.description}</div>
+                        <div class="commit-details">
+                            <div class="detail">
+                                <i class="fas fa-user"></i>
+                                <span>${commit.author}</span>
+                            </div>
+                            <div class="detail">
+                                <i class="far fa-clock"></i>
+                                <span>${commit.date}</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-code-branch"></i>
+                                <span>${commit.branch}</span>
+                            </div>
                         </div>
                     </div>
                 `;
-                
-                commitsContainer.appendChild(commitElement);
-            });
+            }).join('');
             
             // Обновляем статистику
             updateStats();
@@ -1316,28 +1259,35 @@
             document.getElementById('completedTasks').textContent = commits.length;
             document.getElementById('commitCount').textContent = commits.length;
             
-            // Считаем активных разработчиков
             const authors = [...new Set(commits.map(c => c.author))];
             document.getElementById('activeContributors').textContent = Math.max(2, authors.length);
         }
         
-        // Показать админ-панель
-        function showAdminControls() {
-            document.getElementById('adminControls').classList.add('show');
-            document.getElementById('addCommitBtn').style.display = 'flex';
-            document.getElementById('logoutBtn').style.display = 'flex';
-            renderCommits(); // Перерисовываем с кнопками редактирования
+        // Класс типа коммита
+        function getTypeClass(type) {
+            const classes = {
+                'feature': 'feature',
+                'bug-fix': 'bug-fix',
+                'model-update': 'model-update',
+                'content-update': 'content-update',
+                'progress': 'progress',
+                'planning': 'planning'
+            };
+            return classes[type] || 'feature';
         }
         
-        // Скрыть админ-панель
-        function hideAdminControls() {
-            document.getElementById('adminControls').classList.remove('show');
-            document.getElementById('addCommitBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'none';
-            renderCommits(); // Перерисовываем без кнопок редактирования
+        // Текст статуса
+        function getStatusText(status) {
+            const texts = {
+                'В разработке': 'В РАЗРАБОТКЕ',
+                'Планируется': 'ПЛАНИРУЕТСЯ',
+                'Завершено': 'ЗАВЕРШЕНО',
+                'Отложено': 'ОТЛОЖЕНО'
+            };
+            return texts[status] || status.toUpperCase();
         }
         
-        // Очистка формы коммита
+        // Очистка формы
         function clearCommitForm() {
             document.getElementById('commitTitle').value = '';
             document.getElementById('commitDescription').value = '';
@@ -1347,76 +1297,152 @@
             document.getElementById('commitStatus').value = 'В разработке';
         }
         
-        // Редактирование коммита (глобальные функции для onclick)
+        // Добавление коммита
+        function handleAddCommit() {
+            const title = document.getElementById('commitTitle').value.trim();
+            const description = document.getElementById('commitDescription').value.trim();
+            const author = document.getElementById('commitAuthor').value;
+            const type = document.getElementById('commitType').value;
+            const branch = document.getElementById('commitBranch').value.trim();
+            const status = document.getElementById('commitStatus').value;
+            
+            if (!title || !description || !branch) {
+                showNotification('Заполните все поля!', true);
+                return;
+            }
+            
+            const now = new Date();
+            const dateString = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            const newCommit = {
+                id: commits.length > 0 ? Math.max(...commits.map(c => c.id)) + 1 : 1,
+                title: title,
+                description: `<strong>Разработчик: ${author}</strong><br><br>${description.replace(/\n/g, '<br>')}`,
+                author: author,
+                type: type,
+                branch: branch,
+                status: status,
+                date: dateString
+            };
+            
+            commits.push(newCommit);
+            saveCommits();
+            renderCommits();
+            
+            document.getElementById('addCommitModal').style.display = 'none';
+            clearCommitForm();
+            
+            showNotification('Коммит успешно добавлен!');
+        }
+        
+        // Глобальные функции для редактирования/удаления
         window.editCommit = function(id) {
             const commit = commits.find(c => c.id === id);
             if (!commit) return;
             
-            const newTitle = prompt('Введите новое название коммита:', commit.title);
+            const newTitle = prompt('Название коммита:', commit.title);
             if (newTitle === null) return;
             
-            // Убираем HTML теги для отображения в prompt
-            const cleanDescription = commit.description
+            const cleanDesc = commit.description
                 .replace(/<br><br>/g, '\n\n')
                 .replace(/<br>/g, '\n')
-                .replace(/<strong>.*?<\/strong>/g, '')
-                .replace(/<ul class="update-list">/g, '')
-                .replace(/<\/ul>/g, '')
-                .replace(/<li>/g, '• ')
-                .replace(/<\/li>/g, '\n');
+                .replace(/<strong>.*?<\/strong>/g, '');
             
-            const newDescription = prompt('Введите новое описание коммита:', cleanDescription);
-            if (newDescription === null) return;
+            const newDesc = prompt('Описание:', cleanDesc);
+            if (newDesc === null) return;
             
-            const newStatus = prompt('Введите новый статус (В разработке/Планируется/Завершено/Отложено):', commit.status);
+            const newStatus = prompt('Статус (В разработке/Планируется/Завершено/Отложено):', commit.status);
             if (newStatus === null) return;
             
             commit.title = newTitle;
-            commit.description = `<strong>Разработчик: ${commit.author}</strong><br><br>${newDescription.replace(/\n/g, '<br>')}`;
+            commit.description = `<strong>Разработчик: ${commit.author}</strong><br><br>${newDesc.replace(/\n/g, '<br>')}`;
             commit.status = newStatus;
             
-            // Обновляем дату
             const now = new Date();
             commit.date = `${now.getDate()} ${getMonthName(now.getMonth())} ${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
             
-            // Сохраняем в localStorage
-            try {
-                localStorage.setItem('born_test_commits', JSON.stringify(commits));
-            } catch (e) {
-                // Игнорируем ошибки
-            }
-            
+            saveCommits();
             renderCommits();
-            showNotification('Коммит успешно обновлен!');
-        }
+            showNotification('Коммит обновлен!');
+        };
         
-        // Удаление коммита (глобальная функция для onclick)
         window.deleteCommit = function(id) {
-            if (!confirm('Вы уверены, что хотите удалить этот коммит?')) return;
+            if (!confirm('Удалить этот коммит?')) return;
             
             commits = commits.filter(c => c.id !== id);
-            
-            // Сохраняем в localStorage
-            try {
-                localStorage.setItem('born_test_commits', JSON.stringify(commits));
-            } catch (e) {
-                // Игнорируем ошибки
-            }
-            
+            saveCommits();
             renderCommits();
-            updateStats();
+            showNotification('Коммит удален!');
+        };
+        
+        // Уведомления
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notificationMessage');
             
-            showNotification('Коммит успешно удален!');
+            messageEl.textContent = message;
+            notification.className = isError ? 'notification error' : 'notification';
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
         
-        // Вспомогательная функция для получения названия месяца
-        function getMonthName(monthIndex) {
-            const months = [
-                'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-                'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-            ];
-            return months[monthIndex];
+        // Вспомогательные функции
+        function getMonthName(month) {
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                           'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            return months[month];
         }
+        
+        function animateProgressBar() {
+            const bar = document.querySelector('.progress-fill');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 60) {
+                    clearInterval(interval);
+                    return;
+                }
+                width++;
+                bar.style.width = width + '%';
+            }, 20);
+        }
+        
+        function animateLightning() {
+            const lightning = document.querySelector('.default-avatar i');
+            let glowing = false;
+            
+            setInterval(() => {
+                if (glowing) {
+                    lightning.style.color = '#58a6ff';
+                    lightning.style.textShadow = 'none';
+                } else {
+                    lightning.style.color = '#ffd700';
+                    lightning.style.textShadow = '0 0 10px #ffd700';
+                }
+                glowing = !glowing;
+            }, 1000);
+        }
+        
+        // Для отладки в консоли
+        window.debug = {
+            getCommits: () => commits,
+            getCurrentUser: () => currentUser,
+            forceLogin: (user) => {
+                if (ACCOUNTS[user]) {
+                    currentUser = user;
+                    showAdminControls();
+                    console.log(`Принудительный вход как ${user}`);
+                }
+            },
+            clearData: () => {
+                localStorage.clear();
+                commits = [...DEFAULT_COMMITS];
+                renderCommits();
+                console.log("Данные очищены");
+            }
+        };
     </script>
 </body>
 </html>
